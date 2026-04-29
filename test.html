@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GAURS – Own a Fully Managed Studio | Head Field Realtors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0b1a3b;
+      --navy-mid: #0f2255;
+      --navy-light: #162d6b;
+      --gold: #c8a84b;
+      --gold-light: #e2c472;
+      --green: #4caf50;
+      --green-dark: #388e3c;
+      --white: #ffffff;
+      --off-white: #f0f4ff;
+      --text-muted: #94a3c0;
+      --card-bg: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(11, 26, 59, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--white);
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-email {
+      font-size: 0.82rem; color: var(--text-muted);
+      text-decoration: none;
+    }
+    .nav-email:hover { color: var(--gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px 40px 60px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--navy) 0%, #0d2060 40%, #1a3a7a 70%, #0b1a3b 100%);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1400&q=80') center/cover;
+      opacity: 0.2;
+      mix-blend-mode: overlay;
+    }
+    /* Watermark text */
+    .hero-watermark {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(80px, 16vw, 200px);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.03);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 360px;
+      gap: 60px; align-items: center;
+      width: 100%; max-width: 1200px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(200,168,75,0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 700; line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero-sub {
+      font-size: 0.95rem; color: var(--text-muted);
+      line-height: 1.7; max-width: 480px; margin-bottom: 36px;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 700; font-size: 0.85rem;
+      padding: 13px 26px; border-radius: 6px;
+      border: none; cursor: pointer; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-weight: 600; font-size: 0.85rem;
+      padding: 13px 26px; border-radius: 6px;
+      border: 1.5px solid rgba(255,255,255,0.35); cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* Hero Form */
+    .hero-form-wrap {
+      background: rgba(10, 20, 55, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      backdrop-filter: blur(16px);
+    }
+    .hero-form-wrap h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 700;
+      margin-bottom: 18px; color: var(--gold);
+      text-align: center;
+    }
+    .form-field {
+      width: 100%; margin-bottom: 12px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 11px 14px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-field::placeholder { color: rgba(255,255,255,0.35); }
+    .form-field:focus { border-color: var(--gold); }
+    .btn-green {
+      width: 100%; padding: 13px;
+      background: var(--green);
+      color: var(--white); font-weight: 700;
+      font-size: 0.9rem; border: none;
+      border-radius: 6px; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 4px;
+    }
+    .btn-green:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    /* ─── SECTION COMMON ─── */
+    section { padding: 80px 40px; }
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 700; line-height: 1.25;
+      text-align: center;
+    }
+    .section-title em { color: var(--gold); font-style: normal; }
+    .section-subtitle {
+      text-align: center; color: var(--text-muted);
+      font-size: 0.95rem; max-width: 560px; margin: 14px auto 0;
+      line-height: 1.7;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* ─── BUILT FOR DEMAND ─── */
+    .demand { background: var(--navy); }
+    .demand-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px; margin-top: 48px;
+    }
+    .demand-card {
+      border-radius: 10px; overflow: hidden;
+      position: relative; cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .demand-card:hover { transform: translateY(-6px); }
+    .demand-card img {
+      width: 100%; height: 200px; object-fit: cover;
+      display: block;
+    }
+    .demand-card-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 14px 14px;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+      font-size: 0.82rem; font-weight: 600;
+      line-height: 1.4; color: var(--white);
+    }
+
+    /* ─── AT A GLANCE ─── */
+    .glance { background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%); }
+    .glance-tab-row {
+      display: flex; justify-content: center;
+      gap: 0; margin: 36px auto 32px;
+      border-bottom: 1px solid var(--border);
+      max-width: 600px;
+    }
+    .glance-tab {
+      padding: 10px 28px; font-size: 0.88rem; font-weight: 500;
+      color: var(--text-muted); cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      background: none; border-top: none; border-left: none; border-right: none;
+    }
+    .glance-tab.active, .glance-tab:hover {
+      color: var(--gold); border-bottom-color: var(--gold);
+    }
+    .glance-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 16px; max-width: 680px; margin: 0 auto 32px;
+    }
+    .glance-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 22px 20px;
+      font-size: 0.88rem; line-height: 1.5;
+      color: rgba(255,255,255,0.85);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .glance-card:hover {
+      border-color: var(--gold);
+      background: rgba(200,168,75,0.05);
+    }
+    .glance-card strong { display: block; font-size: 0.78rem; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+    .btn-download {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--gold); color: var(--navy);
+      font-weight: 700; font-size: 0.85rem;
+      padding: 13px 28px; border-radius: 6px;
+      border: none; cursor: pointer;
+      margin: 0 auto; transition: background 0.2s;
+    }
+    .btn-download:hover { background: var(--gold-light); }
+
+    /* ─── MORE THAN RESIDENCE ─── */
+    .residence { background: var(--navy-mid); }
+    .gallery-strip {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 12px; margin-top: 48px;
+      height: 320px;
+    }
+    .gallery-item {
+      border-radius: 10px; overflow: hidden;
+      position: relative; cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 20px 16px 12px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      font-size: 0.8rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── POSITIONED ─── */
+    .positioned { background: var(--navy); }
+    .positioned-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+    }
+    .positioned h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+      font-weight: 700; margin-bottom: 30px;
+    }
+    .positioned h2 em { color: var(--gold); font-style: normal; }
+    .positioned-list { list-style: none; margin-bottom: 30px; }
+    .positioned-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; font-size: 0.92rem;
+      color: rgba(255,255,255,0.85);
+      border-bottom: 1px solid var(--border);
+    }
+    .positioned-list li::before {
+      content: '◆';
+      color: var(--gold); font-size: 0.6rem; margin-top: 4px; flex-shrink: 0;
+    }
+    .positioned-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; line-height: 1.6;
+      color: var(--text-muted);
+    }
+    .positioned-tagline strong { color: var(--gold); }
+    .map-placeholder {
+      border-radius: 12px; overflow: hidden;
+      height: 380px;
+      background: linear-gradient(135deg, #0d2060, #1a3a7a);
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .map-placeholder iframe {
+      width: 100%; height: 100%; border: none;
+    }
+
+    /* ─── BUY RIGHT ─── */
+    .buy-right { background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy) 100%); }
+    .buy-right-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+    }
+    .buy-right h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+      font-weight: 700; margin-bottom: 36px;
+      text-align: center;
+    }
+    .buy-right h2 em { color: var(--gold); font-style: normal; }
+    .feature-pills { display: flex; flex-direction: column; gap: 14px; }
+    .pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 40px; padding: 14px 24px;
+      font-size: 0.9rem; color: rgba(255,255,255,0.85);
+      display: flex; align-items: center; gap: 12px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .pill:hover { border-color: var(--gold); background: rgba(200,168,75,0.08); }
+    .pill-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0;
+    }
+    .agents-img {
+      border-radius: 12px; overflow: hidden;
+      background: linear-gradient(135deg, #0d2060, #1a3a7a);
+      display: flex; align-items: flex-end; justify-content: center;
+      min-height: 400px; position: relative;
+      border: 1px solid var(--border);
+    }
+    .agents-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 12px;
+    }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      background: var(--navy-mid);
+      text-align: center;
+      padding: 80px 40px;
+    }
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+      font-weight: 700; max-width: 700px;
+      margin: 0 auto 36px; line-height: 1.3;
+    }
+    .cta-section h2 em { color: var(--gold); font-style: normal; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── FOOTER SECTION ─── */
+    .footer-section {
+      background: var(--navy);
+      padding: 80px 40px 0;
+    }
+    .footer-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; max-width: 1200px; margin: 0 auto;
+      align-items: start;
+    }
+    .footer-left {
+      position: relative;
+      border-radius: 12px; overflow: hidden;
+      min-height: 380px;
+      background: linear-gradient(160deg, #0d2060 0%, #1a3a7a 100%);
+    }
+    .footer-left img {
+      width: 100%; height: 100%; object-fit: cover; opacity: 0.6;
+    }
+    .footer-left-text {
+      position: absolute; bottom: 28px; left: 28px; right: 28px;
+    }
+    .footer-left-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700; line-height: 1.35;
+    }
+    .footer-left-text h3 em { color: var(--gold); font-style: normal; }
+    .footer-form-wrap h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; margin-bottom: 24px;
+    }
+    .footer-form-wrap h3 em { color: var(--gold); font-style: normal; }
+
+    /* ─── BOTTOM FOOTER ─── */
+    footer {
+      background: #060f22;
+      padding: 36px 40px;
+      margin-top: 60px;
+    }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: auto 1fr auto;
+      gap: 40px; align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-nav { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+    .footer-nav a {
+      color: var(--text-muted); font-size: 0.85rem;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--gold); }
+    .footer-right {
+      display: flex; flex-direction: column;
+      align-items: flex-end; gap: 8px;
+    }
+    .footer-right a {
+      color: var(--text-muted); font-size: 0.82rem;
+      text-decoration: none;
+    }
+    .footer-right a:hover { color: var(--gold); }
+    .social-icons { display: flex; gap: 12px; }
+    .social-icon {
+      width: 34px; height: 34px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.75rem; transition: border-color 0.2s, color 0.2s;
+    }
+    .social-icon:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-copy {
+      max-width: 1200px; margin: 24px auto 0;
+      padding-top: 20px; border-top: 1px solid var(--border);
+      font-size: 0.78rem; color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* ─── DIVIDER ─── */
+    .gold-divider {
+      width: 60px; height: 3px;
+      background: var(--gold);
+      margin: 16px auto 0; border-radius: 2px;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .demand-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-strip { grid-template-columns: 1fr 1fr; height: auto; }
+      .gallery-item { height: 200px; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .hero { padding: 90px 20px 50px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+      section { padding: 60px 20px; }
+      .demand-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .glance-grid { grid-template-columns: 1fr; }
+      .gallery-strip { grid-template-columns: 1fr 1fr; height: auto; }
+      .gallery-item { height: 170px; }
+      .positioned-inner,
+      .buy-right-inner,
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { grid-template-columns: 1fr; text-align: center; gap: 20px; }
+      .footer-right { align-items: center; }
+    }
+    @media (max-width: 480px) {
+      .demand-grid { grid-template-columns: 1fr; }
+      .gallery-strip { grid-template-columns: 1fr; }
+      .gallery-item { height: 200px; }
+      .hero-btns { flex-direction: column; }
+      .cta-btns { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─── -->
+<nav>
+  <div class="nav-logo">G<span>▲</span>URS</div>
+  <a href="mailto:info@hfrealtors.com" class="nav-email">info@hfrealtors.com</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-watermark">GAURS</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge fade-up">NCR's Fastest-Growing Investment Hub</div>
+      <h1 class="fade-up delay-1">
+        Own a Fully Managed<br>
+        <em>Studio</em> at NCR's Fastest-Growing<br>
+        Investment Hub
+      </h1>
+      <p class="hero-sub fade-up delay-2">
+        A precision-positioned asset in the heart of Noida's most anticipated growth corridor — built for returns, not just residence.
+      </p>
+      <div class="hero-btns fade-up delay-3">
+        <a href="#contact" class="btn-gold">Get Price & Availability</a>
+        <a href="#contact" class="btn-outline">Speak to an Advisor</a>
+      </div>
+    </div>
+    <div class="hero-form-wrap fade-up delay-4">
+      <h3>Own a Premium Address</h3>
+      <input class="form-field" type="text" placeholder="Name" />
+      <input class="form-field" type="tel" placeholder="Mobile No." />
+      <input class="form-field" type="email" placeholder="Email" />
+      <textarea class="form-field" placeholder="Requirements" rows="3" style="resize:none"></textarea>
+      <button class="btn-green">Submit</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BUILT FOR DEMAND ─── -->
+<section class="demand">
+  <div class="container">
+    <p class="section-label" style="text-align:center">Why This Project</p>
+    <h2 class="section-title">Built For <em>Demand,</em> Not Speculation</h2>
+    <div class="gold-divider"></div>
+    <div class="demand-grid">
+      <div class="demand-card">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Airport Corridor" />
+        <div class="demand-card-label">Near the airport and growth corridor</div>
+      </div>
+      <div class="demand-card">
+        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80" alt="Hospitality" />
+        <div class="demand-card-label">In-built retail and hospitality</div>
+      </div>
+      <div class="demand-card">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&q=80" alt="Studio Format" />
+        <div class="demand-card-label">Studio format with rental demand</div>
+      </div>
+      <div class="demand-card">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=80" alt="Township" />
+        <div class="demand-card-label">Township ecosystem</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EVERYTHING AT A GLANCE ─── -->
+<section class="glance">
+  <div class="container">
+    <p class="section-label" style="text-align:center">Project Highlights</p>
+    <h2 class="section-title">Everything You Need To Know<br><em>At A Glance</em></h2>
+    <div class="gold-divider"></div>
+    <div class="glance-tab-row">
+      <button class="glance-tab active">Yamuna Expressway Connectivity</button>
+      <button class="glance-tab">Amenities</button>
+      <button class="glance-tab">Returns</button>
+    </div>
+    <div class="glance-grid">
+      <div class="glance-card">
+        <strong>Studio Apartments</strong>
+        Fully furnished studio apartments designed for maximum rental yield and comfort.
+      </div>
+      <div class="glance-card">
+        <strong>Integrated Township</strong>
+        Integrated township (Gaur Yamuna City) with full social infrastructure in place.
+      </div>
+      <div class="glance-card">
+        <strong>Mixed-Use Ecosystem</strong>
+        Hospitality + retail + residential ecosystem within a single, walkable development.
+      </div>
+      <div class="glance-card">
+        <strong>Expressway Connectivity</strong>
+        Yamuna Expressway connectivity directly linking NCR to Agra with rapid transit access.
+      </div>
+    </div>
+    <div style="text-align:center">
+      <button class="btn-download">⬇ Download Layout</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MORE THAN A RESIDENCE ─── -->
+<section class="residence">
+  <div class="container">
+    <p class="section-label" style="text-align:center">Lifestyle</p>
+    <h2 class="section-title">More Than A Residence.<br><em>A Complete Environment.</em></h2>
+    <div class="gold-divider"></div>
+    <div class="gallery-strip">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80" alt="Clubhouse" />
+        <div class="gallery-caption">Clubhouse And Leisure Zones</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80" alt="Pool" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=80" alt="Interior" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=400&q=80" alt="Amenity" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── POSITIONED ─── -->
+<section class="positioned">
+  <div class="container">
+    <div class="positioned-inner">
+      <div>
+        <p class="section-label">Location Intelligence</p>
+        <h2>Positioned Where NCR Is <em>Expanding Next</em></h2>
+        <ul class="positioned-list">
+          <li>Yamuna Expressway growth corridor</li>
+          <li>Near the upcoming Noida International Airport</li>
+          <li>Future metro and RRTS connectivity planned</li>
+          <li>Part of the YEIDA development zone</li>
+        </ul>
+        <p class="positioned-tagline">
+          This is not a central market play.<br>
+          It is a <strong>timing + infrastructure</strong> play.
+        </p>
+      </div>
+      <div class="map-placeholder">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56908.22792898!2d77.43!3d28.37!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cbf0e9b7a8b5f%3A0xd7b7bfdc11e3ee!2sYamuna+Expressway!5e0!3m2!1sen!2sin!4v1680000000000"
+          loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── YOU DON'T JUST BUY HERE ─── -->
+<section class="buy-right">
+  <div class="container">
+    <h2>You Don't Just Buy Here. You Buy<br><em>Right With Head Field Realtors.</em></h2>
+    <div class="buy-right-inner">
+      <div class="feature-pills">
+        <div class="pill"><span class="pill-dot"></span>Unit selection based on yield potential</div>
+        <div class="pill"><span class="pill-dot"></span>Price benchmarking within the project</div>
+        <div class="pill"><span class="pill-dot"></span>Understanding rental positioning</div>
+        <div class="pill"><span class="pill-dot"></span>End-to-end closure and documentation</div>
+      </div>
+      <div class="agents-img">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80" alt="Real Estate Agents" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA SECTION ─── -->
+<section class="cta-section" id="cta">
+  <div class="container">
+    <p class="section-label">Limited Opportunity</p>
+    <h2>If You Are Buying For Returns, This Is The Kind Of Asset<br><em>You Evaluate Early</em></h2>
+    <div class="gold-divider" style="margin-bottom:36px"></div>
+    <div class="cta-btns">
+      <a href="#contact" class="btn-gold">Get Pricing</a>
+      <a href="#contact" class="btn-outline">Schedule a Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER CONTACT + FORM ─── -->
+<section class="footer-section" id="contact">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" alt="Building" />
+      <div class="footer-left-text">
+        <h3>Not Every Property Appreciates.<br>The Right Ones Are Positioned<br><em>Before The Market Catches Up.</em></h3>
+      </div>
+    </div>
+    <div class="footer-form-wrap">
+      <h3>Get In Touch With<br><em>Our Experts</em></h3>
+      <input class="form-field" type="text" placeholder="Name" />
+      <input class="form-field" type="email" placeholder="Email" />
+      <input class="form-field" type="tel" placeholder="Phone" />
+      <textarea class="form-field" placeholder="Tell us about your requirements" rows="4" style="resize:none"></textarea>
+      <button class="btn-green">Submit Enquiry</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-bottom">
+    <div class="footer-logo">Head &amp; Field<br><span>REALTORS</span></div>
+    <nav class="footer-nav">
+      <a href="#">About HF</a>
+      <a href="#">The Project</a>
+      <a href="#">Our Approach</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="footer-right">
+      <div class="social-icons">
+        <a href="#" class="social-icon">in</a>
+        <a href="#" class="social-icon">IG</a>
+        <a href="#" class="social-icon">YT</a>
+      </div>
+      <a href="mailto:info@hfrealtors.com">info@hfrealtors.com</a>
+      <a href="tel:+919009090239">+91 9009090239</a>
+    </div>
+  </div>
+  <p class="footer-copy">© 2025 Head Field Realtors. All rights reserved. | RERA Registered</p>
+</footer>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.glance-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.glance-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Scroll fade-in for sections
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.demand-card, .glance-card, .gallery-item, .pill').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
